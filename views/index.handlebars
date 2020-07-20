@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="col-12">Burgermeisterz Revenge</h1>
+
+  <h2>Add a Boiga</h2>
+  <form class="create-form">
+
+    <div class="form-group">
+      <label for="ca">Boiga Name:</label>
+      <input type="text" id="ca" name="name">
+    </div>
+
+    <div class="form-group">
+
+      <button type="submit">Add Boiga</button>
+  </form>
+
+  <div class="row">
+
+    <h2 class="col-6">Boigas Wishlist</h2>
+
+    <h2 class="col-6">Boigas Demolished</h2>
+
+    <ul class="col-6">
+      {{#each burgers}}
+      {{#unless demolish}}
+      {{> burgers/burger-block demolish=true}}
+      {{/unless}}
+      {{/each}}
+    </ul>
+
+    <ul class="col-6">
+      {{#each burgers}}
+      {{#if demolish}}
+      {{> burgers/burger-block demolish=false}}
+      {{/if}}
+      {{/each}}
+    </ul>
+  </div>
+
+</div>
