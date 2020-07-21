@@ -1,33 +1,12 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function() {
-  $(".change-demolish").on("click", function(event) {
-    let id = $(this).data("id");
-    let newDemolish = $(this).data("newdemolish");
-
-    let newDemolishState = {
-      demolish: newDemolish
-    };
-
-    // Send the PUT request.
-    $.ajax("/api/burgers/" + id, {
-      type: "PUT",
-      data: newDemolishState
-    }).then(
-      function() {
-        console.log("changed demolish to", newDemolish);
-        // Reload the page to get the updated list
-        location.reload();
-      }
-    );
-  });
-
+  // Add burger
   $(".create-form").on("submit", function(event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
-
     let newBurger = {
       name: $("#ca").val().trim(),
-      demolish: $("[name=demolish]:checked").val().trim()
+      demolished: 0
     };
 
     // Send the POST request.
@@ -43,6 +22,29 @@ $(function() {
     );
   });
 
+  // Move burger to Demolished
+  $(".change-demolish").on("click", function(event) {
+    let id = $(this).data("id");
+    let newDemolish = $(this).data("newdemolish");
+
+    let newDemolishState = {
+      demolished: 1
+    };
+
+    // Send the PUT request.
+    $.ajax("/api/burgers/" + id, {
+      type: "PUT",
+      data: newDemolishState
+    }).then(
+      function() {
+        console.log("changed demolish to", newDemolish);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+// Delete Burger
   $(".delete-burger").on("click", function(event) {
     let id = $(this).data("id");
 

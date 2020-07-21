@@ -1,5 +1,5 @@
 ### Schema
-
+DROP DATABASE burgerdb;
 CREATE DATABASE burgerdb;
 USE burgerdb;
 
@@ -7,6 +7,6 @@ CREATE TABLE burgers
 (
 	id int NOT NULL AUTO_INCREMENT,
 	name varchar(255) NOT NULL,
-	demolished BOOLEAN DEFAULT false,
+	demolished BOOLEAN,
 	PRIMARY KEY (id)
 );
