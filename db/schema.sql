@@ -1,4 +1,3 @@
-### Schema
 DROP DATABASE burgerdb;
 CREATE DATABASE burgerdb;
 USE burgerdb;
@@ -10,3 +9,4 @@ CREATE TABLE burgers
 	demolished BOOLEAN,
 	PRIMARY KEY (id)
 );
+
