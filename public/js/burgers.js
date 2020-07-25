@@ -1,11 +1,18 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
+
   function getBurgerData(category) {
     let categoryString = category || "";
     if (categoryString) {
       categoryString = "/category/" + categoryString;
     }
     $.get("/api/burgers" + categoryString, data => {
+          // Wishlist/Demolished List empty, then show message
+    // if (d) {
+
+    // }
+    console.log(data)
+      
       for (let i = 0; i < data.burgers.length; i++) {
 
         const burgerInfo = $("<h5>");
@@ -14,23 +21,25 @@ $(function () {
 
         const deleteButton = $("<button>");
         deleteButton.text("x");
-        deleteButton.addClass("delete btn btn-outline-danger");
+        deleteButton.addClass("btn btn-outline-danger delete");
         deleteButton.attr("id", "delete-burger");
         deleteButton.attr("value", data.burgers[i].id);
 
         const demolishedButton = $("<button>");
         demolishedButton.text("Demolish");
-        demolishedButton.addClass("delete btn btn-outline-success ml-2");
+        demolishedButton.addClass("btn btn-outline ml-2 demolish");
+        demolishedButton.data("data", data.burgers[i]);
 
         if (data.burgers[i].demolished === 1) {
           // Wishlist
           $("#burger-demolish-list").append(burgerInfo);
+          $("#list-item-" + data.burgers[i].id).append(deleteButton);
         } else {
           // Demolish List
           $("#burger-wishlist").append(burgerInfo);
+          $("#list-item-" + data.burgers[i].id).append(demolishedButton);
+          $("#list-item-" + data.burgers[i].id).append(deleteButton);
         }
-        $("#list-item-" + data.burgers[i].id).append(demolishedButton);    
-        $("#list-item-" + data.burgers[i].id).append(deleteButton);
       }
     });
   }
@@ -58,15 +67,24 @@ $(function () {
     );
   });
 
-  // Move burger to Demolished
-  $(".change-demolish").on("click", function (event) {
-    let id = $(this).attr("data", "id");
-    let newDemolish = $(this).data("newdemolish");
+  // Update burger to Demolished
+  $(document).on("click", "button.demolish", handleBurgerDemolish);
+
+  function handleBurgerDemolish() {
+    const currentDemolish = $(this).data("data");
+    demolishBurger(currentDemolish)
+  };
+
+  function demolishBurger(data) {
+    let id = data.id;
+    let newDemolish = 1;
 
     let newDemolishState = {
+      id: data.id,
+      name: data.name,
       demolished: newDemolish
     };
-
+    console.log(newDemolishState);
     // Send the PUT request.
     $.ajax("/api/burgers/" + id, {
       type: "PUT",
@@ -78,7 +96,7 @@ $(function () {
         location.reload();
       }
     );
-  });
+  };
 
   // Delete Burger
   $(document).on("click", "button.delete", handleBurgerDelete);
@@ -103,4 +121,26 @@ $(function () {
       }
     );
   };
+});
+
+// mo.js
+const burst = new mojs.Burst({
+  parent: '.hiddenDiv',
+  radius: { 30: 0 },
+  count: 150,
+  children: {
+    shape: 'circle',
+    points: 200,
+    fill: { '#FF331F': '#FF8F52' },
+    angle: { 360: 0 },
+    duration: 100,
+    delay: 'stagger( rand(0, 200) )'
+  }
+});
+
+$(document).on("click", function (e) {
+  burst
+    .tune({ x: 0, y: -275 })
+    .setSpeed(100)
+    .replay();
 });

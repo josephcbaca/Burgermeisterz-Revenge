@@ -1,19 +1,60 @@
-li {
-  padding: 5px;
-  margin: 5px;
-  background: #faebd7;
+body {
+  background-color: #F7F09B;
 }
 
-.label {
-  font-weight: bold;
+#title {
+  color: #FF8F52;
+  text-shadow: -1px -1px 0 #FF331F, 1px -1px 0 #FF331F, -1px 1px 0 #FF331F, 1px 1px 0 #FF331F;
+
 }
 
-.create-update-form {
-  padding: 5px;
-  margin: 5px;
-  background: aqua;
+.demolish {
+  color: #F8F8FF;
+  border-color: #F8F8FF;
+  background-color: #100C08;
 }
 
-.form-group {
-  margin-bottom: 5px;
+.addCard {
+  background-color: #100C08;
+  box-shadow: -1px -1px 0 #F8F8FF, 1px -1px 0 #F8F8FF, -1px 1px 0 #F8F8FF, 1px 1px 0 #F8F8FF;
 }
+
+.burgerLists {
+  background-color: #F8F8FF;
+  box-shadow: -1px -1px 0 #100C08, 1px -1px 0 #100C08, -1px 1px 0 #100C08, 1px 1px 0 #100C08;
+}
+
+.addText {
+  color: #F8F8FF;
+}
+
+.addButton {
+  color: #F8F8FF;
+  border-color: #F8F8FF;
+}
+
+.addInput {
+  outline: none;
+  color: #F8F8FF;
+  border: #F8F8FF;
+  background-color: transparent;
+  /* box-shadow: -1px -1px 0 #F8F8FF, 1px -1px 0 #F8F8FF, -1px 1px 0 #F8F8FF, 1px 1px 0 #F8F8FF; */
+  resize: none;
+  overflow: auto;
+}
+
+#burgerIcon {
+  margin-left: auto;
+  margin-right: auto;
+  width: 5%;
+  height: 5%;
+}
+
+/* Color Pallette:
+White:  F8F8FF
+Light Yellow:  F7F09B 
+Dark Yellow:  FFEB85
+Light Red:  FF8F52
+Red:  FF331F
+Black:  100C08
+*/
