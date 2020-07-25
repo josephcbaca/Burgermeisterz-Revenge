@@ -1,23 +1,27 @@
 // Set up MySQL connection.
 let mysql = require("mysql");
 require('dotenv').config({ path: "/Users/josep/dev/AdditionalFiles/.env" });
+let connection;
 
-let connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: process.env.DB_PASS,
-  database: "burgerdb"
-});
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+} else {
+  connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: process.env.DB_PASS,
+    database: "burgerdb"
+  });
 
-// Make connection.
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + connection.threadId);
-});
+  // Make connection.
+  connection.connect(function (err) {
+    if (err) {
+      console.error("error connecting: " + err.stack);
+      return;
+    }
+    console.log("connected as id " + connection.threadId);
+  });
 
-// Export connection for our ORM to use.
-module.exports = connection;
+  // Export connection for our ORM to use.
+  module.exports = connection;
