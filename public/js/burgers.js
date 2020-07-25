@@ -1,20 +1,17 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
-
+  
   function getBurgerData(category) {
     let categoryString = category || "";
     if (categoryString) {
       categoryString = "/category/" + categoryString;
     }
     $.get("/api/burgers" + categoryString, data => {
-          // Wishlist/Demolished List empty, then show message
-    // if (d) {
+      // Dynamic js to compose lists when data is returned from db
+      let wishlistCount = [];
+      let demolishedListCount = [];
 
-    // }
-    console.log(data)
-      
       for (let i = 0; i < data.burgers.length; i++) {
-
         const burgerInfo = $("<h5>");
         burgerInfo.attr("id", "list-item-" + data.burgers[i].id);
         burgerInfo.text(data.burgers[i].name);
@@ -31,16 +28,25 @@ $(function () {
         demolishedButton.data("data", data.burgers[i]);
 
         if (data.burgers[i].demolished === 1) {
-          // Wishlist
+          // Demolish List
+          demolishedListCount.push(data.burgers.id)
           $("#burger-demolish-list").append(burgerInfo);
           $("#list-item-" + data.burgers[i].id).append(deleteButton);
         } else {
-          // Demolish List
+          // Wishlist
+          wishlistCount.push(data.burgers.id)
           $("#burger-wishlist").append(burgerInfo);
           $("#list-item-" + data.burgers[i].id).append(demolishedButton);
           $("#list-item-" + data.burgers[i].id).append(deleteButton);
-        }
-      }
+        };
+      };
+      // Wishlist/Demolished List empty, then show message
+      if (wishlistCount.length === 0) {
+        $("#burger-wishlist").text("Add boigas to your Wishlist!");
+      };
+      if (demolishedListCount.length === 0) {
+        $("#burger-demolish-list").text("Add boigas to your Wishlist and then demolish them!");
+      };
     });
   }
   getBurgerData();
